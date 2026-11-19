@@ -8,6 +8,9 @@ import { getSavedPage, savePage } from "../../utils/progress";
 
 pdfjs.GlobalWorkerOptions.workerSrc = workerSrc;
 
+const RELEASE_BASE = "https://github.com/anjggti-eng/historinha/releases/download/acervo-v1";
+const remotePdf = (book) => `${RELEASE_BASE}/${book.slug}.pdf`;
+
 const computeWidth = () => {
   const vw = typeof window === "undefined" ? 1024 : window.innerWidth;
   const pad = vw < 640 ? 24 : vw < 1024 ? 64 : 96;
@@ -23,6 +26,8 @@ export default function Reader({ book, onClose, music }) {
   const [loading, setLoading] = useState(true);
   const [rendering, setRendering] = useState(true);
   const [failed, setFailed] = useState(false);
+  const [source, setSource] = useState(book.pdf_local);
+  const triedRemote = useRef(false);
   const pageRef = useRef(null);
   const swipe = useRef({ x: 0, y: 0 });
   const { isPlaying, toggle } = music;
@@ -33,6 +38,8 @@ export default function Reader({ book, onClose, music }) {
     setLoading(true);
     setRendering(true);
     setFailed(false);
+    setSource(book.pdf_local);
+    triedRemote.current = false;
     setPage(getSavedPage(book.slug));
     document.title = `${title} · Historinha`;
     return () => {
@@ -113,6 +120,19 @@ export default function Reader({ book, onClose, music }) {
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
   }, [numPages, page, onClose]);
+
+  const handleLoadError = () => {
+    if (!triedRemote.current) {
+      triedRemote.current = true;
+      setFailed(false);
+      setLoading(true);
+      setNumPages(0);
+      setSource(remotePdf(book));
+      return;
+    }
+    setLoading(false);
+    setFailed(true);
+  };
 
   const progress = numPages ? (page / numPages) * 100 : 0;
   const renderWidth = Math.round(width * zoom);
@@ -212,15 +232,13 @@ export default function Reader({ book, onClose, music }) {
           ) : (
             <div className="m-auto">
               <Document
-                file={book.pdf_local}
+                file={source}
                 onLoadSuccess={({ numPages: total }) => {
                   setNumPages(total);
                   setLoading(false);
                 }}
-                onLoadError={() => {
-                  setLoading(false);
-                  setFailed(true);
-                }}
+                onLoadError={handleLoadError}
+                onSourceError={handleLoadError}
                 loading={null}
                 error={null}
               >

@@ -25,12 +25,11 @@ Build de produção: `npm run build` (saída em `dist/`).
 
 ## Acervo de PDFs
 
-Os PDFs somam ~2,2 GB e ficam fora do git. Para publicar o app com os livros, escolha um destes caminhos:
+Os PDFs somam ~2 GB e ficam fora do git. Eles são publicados como assets da release [`acervo-v1`](https://github.com/anjggti-eng/historinha/releases/tag/acervo-v1).
 
-1. **GitHub Releases** — compacte `public/livros` em partes de até 2 GB e anexe a uma release; o app pode apontar para as URLs dos assets.
-2. **Hugging Face Dataset** — upload gratuito com LFS e URL direta por arquivo; o catálogo pode usar uma base URL externa.
-3. **Cloudflare R2** — 10 GB gratuitos, sem cobrança de egress; bom para servir os PDFs via CDN.
-4. **Somente local** — mantenha os PDFs na máquina e rode o app localmente.
+O leitor tenta primeiro `public/livros/<slug>.pdf` (uso local). Se o arquivo não existir — por exemplo, no GitHub Pages — ele cai automaticamente para a URL da release. Para usar outro host, defina `pdf_remote` em cada livro do `livros.json` ou ajuste `RELEASE_BASE` em `src/components/reader/Reader.jsx`.
+
+Alternativas de hospedagem: Hugging Face Dataset, Cloudflare R2 ou manter tudo local.
 
 ## Scripts de acervo
 
