@@ -1,6 +1,7 @@
 # Historinha — para meus filhos
 
-**Site publicado:** https://anjggti-eng.github.io/historinha/
+**Site publicado:** https://historinha-omega.vercel.app (deploy automático via Vercel)  
+Espelho no GitHub Pages: https://anjggti-eng.github.io/historinha/
 
 Estante de livros infantis de domínio público, feita para ler junto. Leitor em PDF com virada de página, música suave ao fundo e marcador que guarda onde você parou.
 
