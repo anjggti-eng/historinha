@@ -1,5 +1,7 @@
 # Historinha — para meus filhos
 
+**Site publicado:** https://anjggti-eng.github.io/historinha/
+
 Estante de livros infantis de domínio público, feita para ler junto. Leitor em PDF com virada de página, música suave ao fundo e marcador que guarda onde você parou.
 
 **Feito com carinho por William John.**
@@ -34,6 +36,16 @@ https://raw.githubusercontent.com/anjggti-eng/historinha-acervo/main/livros/<slu
 ```
 
 Para usar outro host, ajuste `RELEASE_BASE` em `src/components/reader/Reader.jsx`. Também existe uma release com os arquivos em [acervo-v1](https://github.com/anjggti-eng/historinha/releases/tag/acervo-v1) para download manual (assets do GitHub não enviam CORS, por isso não são usados pelo leitor).
+
+## Publicação
+
+O site é servido pelo GitHub Pages a partir do branch `gh-pages` (sem Actions). Para atualizar:
+
+```bash
+npm run build
+rm -rf dist/livros
+# copie o conteúdo de dist/ para um clone do branch gh-pages, commite e faça push
+```
 
 ## Scripts de acervo
 
