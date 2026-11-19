@@ -3,6 +3,11 @@ import { Brand } from "./Brand";
 import { splitTitle } from "../utils/bookInfo";
 import { getSavedPage } from "../utils/progress";
 
+const asset = (path) =>
+  typeof path === "string" && path.startsWith("/")
+    ? `${import.meta.env.BASE_URL}${path.slice(1)}`
+    : path;
+
 const normalise = (value = "") =>
   value
     .toLowerCase()
@@ -50,7 +55,7 @@ function CoverImage({ src, title, className = "" }) {
 
 function BookCard({ book, onOpen, index }) {
   const { title, author } = splitTitle(book.title);
-  const src = book.cover_local || book.cover;
+  const src = asset(book.cover_local || book.cover);
   const delay = Math.min(index, 18) * 22;
   const saved = getSavedPage(book.slug);
 
@@ -174,7 +179,7 @@ function HeroFan({ books, onOpen }) {
           }}
         >
           <img
-            src={book.cover_local || book.cover}
+            src={asset(book.cover_local || book.cover)}
             alt={splitTitle(book.title).title}
             loading={i === 1 ? "eager" : "lazy"}
             decoding="async"

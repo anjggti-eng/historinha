@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 
-const TRACK = "/audio/conto-tchaikovsky.mp3";
+const TRACK = `${import.meta.env.BASE_URL}audio/conto-tchaikovsky.mp3`;
 const TARGET_VOLUME = 0.32;
 
 export function useBackgroundMusic() {
