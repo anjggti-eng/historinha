@@ -8,7 +8,7 @@ import { getSavedPage, savePage } from "../../utils/progress";
 
 pdfjs.GlobalWorkerOptions.workerSrc = workerSrc;
 
-const RELEASE_BASE = "https://github.com/anjggti-eng/historinha/releases/download/acervo-v1";
+const RELEASE_BASE = "https://raw.githubusercontent.com/anjggti-eng/historinha-acervo/main/livros";
 const remotePdf = (book) => `${RELEASE_BASE}/${book.slug}.pdf`;
 
 const computeWidth = () => {

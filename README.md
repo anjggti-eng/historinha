@@ -25,11 +25,15 @@ Build de produção: `npm run build` (saída em `dist/`).
 
 ## Acervo de PDFs
 
-Os PDFs somam ~2 GB e ficam fora do git. Eles são publicados como assets da release [`acervo-v1`](https://github.com/anjggti-eng/historinha/releases/tag/acervo-v1).
+Os PDFs somam ~2 GB e ficam fora deste repositório. Eles estão no repositório público [historinha-acervo](https://github.com/anjggti-eng/historinha-acervo), servidos por `raw.githubusercontent.com` (com CORS e Range).
 
-O leitor tenta primeiro `public/livros/<slug>.pdf` (uso local). Se o arquivo não existir — por exemplo, no GitHub Pages — ele cai automaticamente para a URL da release. Para usar outro host, defina `pdf_remote` em cada livro do `livros.json` ou ajuste `RELEASE_BASE` em `src/components/reader/Reader.jsx`.
+O leitor tenta primeiro `public/livros/<slug>.pdf` (uso local). Se o arquivo não existir — por exemplo, no GitHub Pages — ele cai automaticamente para:
 
-Alternativas de hospedagem: Hugging Face Dataset, Cloudflare R2 ou manter tudo local.
+```
+https://raw.githubusercontent.com/anjggti-eng/historinha-acervo/main/livros/<slug>.pdf
+```
+
+Para usar outro host, ajuste `RELEASE_BASE` em `src/components/reader/Reader.jsx`. Também existe uma release com os arquivos em [acervo-v1](https://github.com/anjggti-eng/historinha/releases/tag/acervo-v1) para download manual (assets do GitHub não enviam CORS, por isso não são usados pelo leitor).
 
 ## Scripts de acervo
 
